@@ -3,6 +3,7 @@ import { stockbrokerGraph } from "../stockbroker";
 import { tripPlannerGraph } from "../trip-planner";
 import { graph as openCodeGraph } from "../open-code";
 import { graph as orderPizzaGraph } from "../pizza-orderer";
+import { graph as weatherGraphGraph } from "../weather";
 import {
   SupervisorAnnotation,
   SupervisorState,
@@ -16,7 +17,8 @@ export const ALL_TOOL_DESCRIPTIONS = `- stockbroker: can fetch the price of a ti
 - tripPlanner: helps the user plan their trip. it can suggest restaurants, and places to stay in any given location.
 - openCode: can write a React TODO app for the user. Only call this tool if they request a TODO app.
 - orderPizza: can order a pizza for the user
-- writerAgent: can write a text document for the user. Only call this tool if they request a text document.`;
+- weatherGraph: can retrieve the weather for a city. Only call this tool if they request the weather for a city.
+- writerAgent: can write a text document for the user.Only call this tool if they request a text document.`;
 
 function handleRoute(
   state: SupervisorState,
@@ -26,7 +28,8 @@ function handleRoute(
   | "openCode"
   | "orderPizza"
   | "generalInput"
-  | "writerAgent" {
+  | "writerAgent"
+  | "weatherGraph" {
   return state.next;
 }
 
@@ -36,6 +39,7 @@ const builder = new StateGraph(SupervisorAnnotation, SupervisorZodConfiguration)
   .addNode("tripPlanner", tripPlannerGraph)
   .addNode("openCode", openCodeGraph)
   .addNode("orderPizza", orderPizzaGraph)
+  .addNode("weatherGraph", weatherGraphGraph)
   .addNode("generalInput", generalInput)
   .addNode("writerAgent", writerAgentGraph)
   .addConditionalEdges("router", handleRoute, [
@@ -43,6 +47,7 @@ const builder = new StateGraph(SupervisorAnnotation, SupervisorZodConfiguration)
     "tripPlanner",
     "openCode",
     "orderPizza",
+    "weatherGraph",
     "generalInput",
     "writerAgent",
   ])
@@ -51,6 +56,7 @@ const builder = new StateGraph(SupervisorAnnotation, SupervisorZodConfiguration)
   .addEdge("tripPlanner", END)
   .addEdge("openCode", END)
   .addEdge("orderPizza", END)
+  .addEdge("weatherGraph", END)
   .addEdge("generalInput", END)
   .addEdge("writerAgent", END);
 

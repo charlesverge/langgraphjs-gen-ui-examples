@@ -19,6 +19,7 @@ export const GenerativeUIAnnotation = Annotation.Root({
     | "openCode"
     | "orderPizza"
     | "writerAgent"
+    | "weatherGraph"
     | "generalInput"
   >(),
 });

@@ -18,6 +18,7 @@ ${ALL_TOOL_DESCRIPTIONS}
         "tripPlanner",
         "openCode",
         "orderPizza",
+        "weatherGraph",
         "generalInput",
         "writerAgent",
       ])
